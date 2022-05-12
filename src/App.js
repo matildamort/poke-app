@@ -1,16 +1,26 @@
 import React from 'react'
 
-let number = 5
-const changeValue = () => {
-  number = 8
-}
+
+let pokemons=[]
+
+fetch("https://pokeapi.co/api/v2/pokemon/?limit=25")
+.then(response => response.json())
+.then (data =>
+  {pokemons = data.results
+  console.log(pokemons)}
+  )
+
 
 const App = () => {
-  const number =5 
+   
   return (
     <div >
-          <p> The value of number is :{number} </p>
-          <button onClick={changeValue}>Change value to 8</button>
+       <h3>Poke App</h3>
+       <select>
+         <option>Picachu</option>
+         <option>Bulbasaur</option>
+         <option>Charmander</option>
+       </select>
     </div>
   )
 }
