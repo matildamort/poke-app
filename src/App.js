@@ -1,28 +1,61 @@
-import React from 'react'
+import React, {Component} from 'react'
+import pokemons from './data/pokemons.json' 
+
+class App extends Component{
+    constructor(){
+        super()
+        this.state = {
+            name: "pikachu",
+            pokeImg: null
+        }
+    }
+
+    getPokemon(name){
+        fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                name: data.name,
+                pokeImg:data.sprites.other["official-artwork"].front_default
+            })
+            console.log()
+        })
+    }
+
+    
+    // changeValue(e) {
+    //     //this.state.name = e.target.value
+    //     // this.setState({
+    //     //     name: e.target.value
+
+    //     // })
+    //     //this.getPokemon(this.state.name) one behind
+    //     this.getPokemon(e.target.value)
+
+    //   }
 
 
-let pokemons=[]
+    componentDidMount(){
+        this.getPokemon(this.state.name)
+    }
 
-fetch("https://pokeapi.co/api/v2/pokemon/?limit=25")
-.then(response => response.json())
-.then (data =>
-  {pokemons = data.results
-  console.log(pokemons)}
-  )
+    render(){
+        console.log("I am rendering")
+        return(
+            <div>
+                <h3>Poke App</h3>
+                <p>I have {pokemons.length} pokemons</p>
+                <select value={this.state.name} onChange={(e)=>this.getPokemon(e.target.value)}>
+                    {pokemons.map(poke => 
+                        <option key={poke.id} value={poke.name}>{poke.name}</option>
+                    )}
+                </select>
+                <p>{this.state.name} I choose you!</p>
+                <img src={this.state.pokeImg} alt={this.state.name} />        
+            </div>
+        )
+    }
 
-
-const App = () => {
-   
-  return (
-    <div >
-       <h3>Poke App</h3>
-       <select>
-         <option>Picachu</option>
-         <option>Bulbasaur</option>
-         <option>Charmander</option>
-       </select>
-    </div>
-  )
 }
 
 export default App
