@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
+// get an array of pokemons ad objects
 import pokemons from './data/pokemons.json' 
 
+// creation of athe App class component, inheriting from React.component
 class App extends Component{
+    // first phase of mounting, initialise state, super() inherits eveything we get from the component. 
     constructor(){
         super()
+        // initialising state, it is an object inherited from component
         this.state = {
             name: "pikachu",
             pokeImg: null
+
         }
     }
 
@@ -17,6 +22,7 @@ class App extends Component{
             this.setState({
                 name: data.name,
                 pokeImg:data.sprites.other["official-artwork"].front_default
+                
             })
             console.log()
         })
@@ -39,6 +45,10 @@ class App extends Component{
         this.getPokemon(this.state.name)
     }
 
+    // The ssecond step in the mounting proceess, returns a compnent that is rendered ion the browser. 
+    // A select list with the names gotten from pokemon.jsopn
+    // paragraph with the calue of state.name 
+    // image with the url taken from the API stored in state.pokeImg
     render(){
         console.log("I am rendering")
         return(
@@ -55,7 +65,6 @@ class App extends Component{
             </div>
         )
     }
-
 }
 
 export default App
